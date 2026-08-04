@@ -1,0 +1,18 @@
+[cosmic-ray]
+module-path = [
+    "core/infrastructure/seed_pool.py",
+]
+# Focused test command for mutation: only the seed_pool UNIT suite (the
+# hypothesis PBT already caps max_examples=30 via its @settings decorator, so
+# no CLI flag is needed — and the CLI flag is rejected by pytest in this env).
+# The heavy real-db integration test (test_build_real_parent_pool_real_db,
+# which loads the 14 MB alpha_db.json) is EXCLUDED from mutation: integration
+# tests are not mutation targets, and excluding it keeps each mutant run fast
+# (~1-2s) so the whole gate finishes in minutes, not tens of minutes.  Run
+# under the PINNED interpreter so the worker uses the Python that has
+# pytest/hypothesis installed.
+test-command = "E:/Python311/python.exe -m pytest tests/test_seed_pool.py -q -k 'not real_db'"
+timeout = 90
+
+[cosmic-ray.distributor]
+name = "local"

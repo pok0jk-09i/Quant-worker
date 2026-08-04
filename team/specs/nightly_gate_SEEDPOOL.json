@@ -1,0 +1,21 @@
+{
+  "gate": "nightly",
+  "epic": "P1A",
+  "story": "SEEDPOOL",
+  "decision": "PASS",
+  "lint": {
+    "ok": true,
+    "output": [
+      "All checks passed!"
+    ]
+  },
+  "tests": {
+    "passed": 167,
+    "failed": 0,
+    "skipped": 0,
+    "summary": "167 passed, 54 subtests passed in 5.24s",
+    "real_db_included": true
+  },
+  "note": "real-data integration path (alpha_db.json) gated here, not in the fast merge gate",
+  "generated_by": "team/ci/run_nightly_gate.py"
+}

@@ -1,0 +1,68 @@
+{
+  "trace_id": "TRC-P1A-SEEDPOOL-TL-06",
+  "epic": "P1A",
+  "story": "SEEDPOOL",
+  "decision": "BLOCKED",
+  "merge_allowed": false,
+  "gates": {
+    "trace_id": "TRC-P1A-SEEDPOOL-TL-06",
+    "epic": "P1A",
+    "story": "SEEDPOOL",
+    "doors": {
+      "门① 规格覆盖": {
+        "ok": true,
+        "detail": {
+          "checked": 1,
+          "issues": [],
+          "detail": "all stories covered"
+        }
+      },
+      "门② 测试通过": {
+        "ok": false,
+        "detail": {
+          "lint": true,
+          "lint_msg": "ruff clean",
+          "tests_passed": 3,
+          "ok": false,
+          "detail": "test/lint failure"
+        }
+      },
+      "门③ 契约通过": {
+        "ok": true,
+        "detail": {
+          "contracts": 2,
+          "failed": [],
+          "detail": "all contracts satisfied"
+        }
+      },
+      "门④ 独立评估": {
+        "ok": false,
+        "detail": {
+          "lint": true,
+          "lint_msg": "ruff clean",
+          "tests_passed": 4,
+          "mutation": {
+            "available": false,
+            "error": "cosmic-ray init failed (rc=78): ConfigError('Error loading configuration from E:\\\\Quant worker-Research\\\\wq-alpha-research\\\\team\\\\ci\\\\cosmic_seed_pool.toml')\n'gbk' codec can't decode byte 0x94 in position 247: illegal multibyte sequence",
+            "hint": "If this was launched from Git-Bash/MSYS, re-run from a native Windows console (PowerShell/cmd) — cosmic-ray's local distributor hangs under MSYS but works natively. The GitHub Actions workflow .github/workflows/merge_gate.yml runs on Linux and also invokes this exact gate.",
+            "ok": false
+          },
+          "ok": false,
+          "detail": "QA gate failure"
+        }
+      }
+    },
+    "merge_allowed": false
+  },
+  "pipeline": [
+    "PM",
+    "Architect",
+    "Researcher",
+    "Data",
+    "Backend",
+    "QA",
+    "SRE",
+    "TechLead"
+  ],
+  "generated_by": "team/runtime/orchestrator.py"
+}

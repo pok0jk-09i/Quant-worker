@@ -1,0 +1,23 @@
+{
+  "contracts": [
+    {
+      "name": "seed_pool -> candidate_generator",
+      "provider": "core/infrastructure/seed_pool.py::build_real_parent_pool",
+      "consumer": "scripts/candidate_generator.py::main (ingests pool items)",
+      "required_keys": ["expression", "settings"],
+      "optional_keys": ["source", "family", "hypothesis", "fitness", "sharpe", "turnover", "oos_present"],
+      "settings_required_keys": ["instrumentType", "region", "universe", "delay", "decay", "neutralization", "truncation"],
+      "test": "tests/test_seed_pool_contract.py"
+    },
+    {
+      "name": "timeout_field_guard -> candidate_generator/candidate_submitter",
+      "provider": "core/infrastructure/timeout_field_guard.py",
+      "consumer": "scripts/candidate_generator.py (R3-C drop) + scripts/candidate_submitter.py (R3-A SKIPPED_TIMEOUT_RISK)",
+      "required_api": ["is_timeout_prone(expr)->bool", "timeout_prone_fields_in(expr)->list[str]", "TIMEOUT_PRONE_FIELDS:frozenset[str]"],
+      "core_never_blocked": ["open", "close", "high", "low", "volume", "returns", "adv", "vwap", "amount", "preclose", "pctchange", "high_limit", "low_limit", "open_t", "close_t", "high_t", "low_t", "volume_t", "returns_t", "money", "deal_amount", "deal_volume", "deal_money", "adjfactor"],
+      "sample_stall_field": "anl4_fs_guidances_advanced_af_nd_epsr_maxguidance",
+      "sample_new_stall_field": "research_development_expense",
+      "test": "tests/test_timeout_guard_contract.py"
+    }
+  ]
+}

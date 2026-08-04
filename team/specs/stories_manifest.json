@@ -1,0 +1,13 @@
+{
+  "stories": [
+    {
+      "epic": "P1A",
+      "story": "SEEDPOOL",
+      "title": "Real parent-pool builder (P1-A A1-A27): replace ghost-ACTIVE selection with a BRAIN-verified, diversity-aware parent pool",
+      "gwt": "team/specs/seed_pool_spec.md",
+      "interface_contract": "core/infrastructure/seed_pool.py::build_real_parent_pool",
+      "test": "tests/test_seed_pool.py",
+      "contract_test": "tests/test_seed_pool_contract.py"
+    }
+  ]
+}

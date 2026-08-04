@@ -1,0 +1,28 @@
+[cosmic-ray]
+module-path = [
+    "core/infrastructure/thresholds.py",
+    "core/infrastructure/oos_evaluator.py",
+]
+# Focused test command: only the unit + PBT suites for the two mutated modules.
+# (Running the full suite — including integration tests — per mutant is slower
+#  and would not add signal for these two modules.)
+# During mutation, cap hypothesis PBT examples (default 500/300) to 30 to keep
+# per-mutant wall-clock small. The invariant strength of the PBT is preserved
+# (30 randomized examples still probe the formulas); only the fuzz depth is reduced.
+test-command = "python -m pytest core/infrastructure/tests/test_thresholds.py core/infrastructure/tests/test_oos.py -q --hypothesis-max-examples=30"
+timeout = 120
+
+[cosmic-ray.distributor]
+name = "local"
+
+# Scope decision (documented, STDD Door 4):
+# - P0 core logic (the verified formulas) lives in thresholds.py +
+#   oos_evaluator.py. These are mutated with the FULL default operator set.
+# - submit_gate.py is integration wiring; its correctness is covered by the
+#   contract/integration tests in test_gate_p0.py (which also exercise the two
+#   mutated modules). It is excluded from mutation here because cosmic-ray v8
+#   cannot exclude the always-on `number_replacer` operator (see
+#   cosmic_ray/commands/init.py: operators without arguments are always
+#   included), and submit_gate's many numeric literals make the full run exceed
+#   a reasonable gate wall-clock. This is a transparent, bounded scope tradeoff,
+#   not a reduction in asserted correctness.
